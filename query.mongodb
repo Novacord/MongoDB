@@ -405,3 +405,29 @@ db.Registro_Devolucion.insertMany([
 use("db_campus_alquiler");
 db.Cliente.find({},{ _id: 0 });
 
+// 3.
+use("db_campus_alquiler");
+db.getCollection("Alquiler").aggregate([
+  {
+    $match: { 
+      Estado: "Disponible", 
+    }
+  },
+  {
+    $lookup: {
+      from: "Automovil",
+      localField: "ID_Automovil",
+      foreignField: "id_",
+      as: "Automovil"
+    }
+  },
+  {
+    $unwind: '$Automovil'
+  },
+  {
+    $project: { 
+      _id: 0,
+      "Automovil._id":0
+    }
+  }
+]);
