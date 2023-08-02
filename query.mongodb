@@ -431,3 +431,30 @@ db.getCollection("Alquiler").aggregate([
     }
   }
 ]);
+
+// 4.
+use("db_campus_alquiler");
+db.getCollection("Alquiler").aggregate([
+  {
+    $match: { 
+      Estado: "Activo", 
+    }
+  },
+  {
+    $lookup: {
+      from: "Cliente",
+      localField: "ID_Cliente",
+      foreignField: "id_",
+      as: "Cliente"
+    }
+  },
+  {
+    $unwind: '$Cliente'
+  },
+  {
+    $project: { 
+      _id: 0,
+      "Cliente._id": 0
+    }
+  }
+]);
