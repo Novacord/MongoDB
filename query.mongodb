@@ -400,3 +400,8 @@ db.Registro_Devolucion.insertMany([
     }
 ]);
 
+
+// 2.
+use("db_campus_alquiler");
+db.Cliente.find({},{ _id: 0 });
+
