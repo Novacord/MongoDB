@@ -619,3 +619,7 @@ db.getCollection("Sucursal").aggregate([
     }
   }
 ]);
+
+// 18.
+use("db_campus_alquiler");
+db.Alquiler.countDocuments();
