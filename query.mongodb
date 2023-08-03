@@ -592,3 +592,30 @@ db.getCollection("Cliente").aggregate([
 // 16.
 use("db_campus_alquiler");
 db.Automovil.find({}, { _id: 0 }).sort({ Marca: 1, Modelo: 1 });
+
+// 17.
+use("db_campus_alquiler");
+db.getCollection("Sucursal").aggregate([
+  {
+    $lookup: {
+      from: "Sucursal_Automovil",
+      localField: "id_",
+      foreignField: "id_",
+      as: "Sucursal_Automovil"
+    }
+  },
+  {
+    $project: { 
+      _id: 0,
+      "Sucursal_Automovil._id": 0
+    }
+  },
+  {
+    $group: {
+      _id:"$id_",
+      Nombre: { $first: "$Nombre"},
+      Cantidad: { $first:"$Sucursal_Automovil.Direccion"},
+      Direccion: { $first: "$Direccion"}
+    }
+  }
+]);
