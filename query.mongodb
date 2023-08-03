@@ -588,3 +588,7 @@ db.getCollection("Cliente").aggregate([
     }
   }
 ]);
+
+// 16.
+use("db_campus_alquiler");
+db.Automovil.find({}, { _id: 0 }).sort({ Marca: 1, Modelo: 1 });
