@@ -650,3 +650,27 @@ db.getCollection("Automovil").aggregate([
     }
   }
 ]);
+
+// 20.
+use("db_campus_alquiler");
+db.getCollection("Cliente").aggregate([
+  {
+    $lookup: {
+      from: "Reserva",
+      localField: "id_",
+      foreignField: "ID_Cliente",
+      as: "Reserva"
+    }
+  },
+  {
+    $project: { 
+      _id: 0,
+      "Reserva._id": 0
+    }
+  },
+  {
+    $match: { 
+      "Reserva.id_": 1
+    }
+  }
+]);
