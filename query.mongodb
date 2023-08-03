@@ -499,3 +499,29 @@ db.Alquiler.find({id_: 2},{_id: 0});
 // 7.
 use("db_campus_alquiler");
 db.Empleado.find({Cargo: "Vendedor"},{_id: 0});
+
+// 8.
+use("db_campus_alquiler");
+db.getCollection("Sucursal").aggregate([
+  {
+    $lookup: {
+      from: "Sucursal_Automovil",
+      localField: "id_",
+      foreignField: "id_",
+      as: "Sucursal_Automovil"
+    }
+  },
+  {
+    $project: { 
+      _id: 0,
+      "Sucursal_Automovil._id": 0
+    }
+  },
+  {
+    $group: {
+      _id:"$id_",
+      Nombre: { $first: "$Nombre"},
+      Cantidad: { $first:"$Sucursal_Automovil.Direccion"}
+    }
+  }
+]);
