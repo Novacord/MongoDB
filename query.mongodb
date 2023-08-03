@@ -537,3 +537,7 @@ db.Cliente.find({ DNI: "12345678" }, { _id: 0,});
 // 11.
 use("db_campus_alquiler");
 db.Automovil.find({ Capacidad: { $gt: 5 } }, { _id: 0 });
+
+// 12.
+use("db_campus_alquiler");
+db.Alquiler.find({ Fecha_Inicio: "2023-07-05" }, { _id: 0 });
