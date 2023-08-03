@@ -495,3 +495,7 @@ db.getCollection("Reserva").aggregate([
 // 6.
 use("db_campus_alquiler");
 db.Alquiler.find({id_: 2},{_id: 0});
+
+// 7.
+use("db_campus_alquiler");
+db.Empleado.find({Cargo: "Vendedor"},{_id: 0});
