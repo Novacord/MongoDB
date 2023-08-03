@@ -569,3 +569,22 @@ db.getCollection("Reserva").aggregate([
 // 14.
 use("db_campus_alquiler");
 db.Empleado.find({ $or: [ { Cargo: "Gerente" }, { Cargo: "Asistente" } ]}, { _id: 0 });
+
+// 15.
+use("db_campus_alquiler");
+db.getCollection("Cliente").aggregate([
+  {
+    $lookup: {
+      from: "Alquiler",
+      localField: "id_",
+      foreignField: "ID_Cliente",
+      as: "Alquiler"
+    }
+  },
+  {
+    $project: { 
+      _id: 0,
+      "Alquiler._id": 0
+    }
+  }
+]);
