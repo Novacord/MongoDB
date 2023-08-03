@@ -566,3 +566,6 @@ db.getCollection("Reserva").aggregate([
   }
 ]);
 
+// 14.
+use("db_campus_alquiler");
+db.Empleado.find({ $or: [ { Cargo: "Gerente" }, { Cargo: "Asistente" } ]}, { _id: 0 });
