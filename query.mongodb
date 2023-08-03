@@ -525,3 +525,7 @@ db.getCollection("Sucursal").aggregate([
     }
   }
 ]);
+
+// 9.
+use("db_campus_alquiler");
+db.Alquiler.find({ id_: 1 }, { _id: 0, Costo_Total: 1 });
