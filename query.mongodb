@@ -541,3 +541,28 @@ db.Automovil.find({ Capacidad: { $gt: 5 } }, { _id: 0 });
 // 12.
 use("db_campus_alquiler");
 db.Alquiler.find({ Fecha_Inicio: "2023-07-05" }, { _id: 0 });
+
+// 13.
+use("db_campus_alquiler");
+db.getCollection("Reserva").aggregate([
+  {
+    $lookup: {
+      from: "Cliente",
+      localField: "ID_Cliente",
+      foreignField: "id_",
+      as: "Cliente"
+    }
+  },
+  {
+    $project: { 
+      _id: 0,
+      "Cliente._id": 0
+    }
+  },
+  {
+    $match: { 
+        ID_Cliente: 1, 
+    }
+  }
+]);
+
