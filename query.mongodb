@@ -623,3 +623,30 @@ db.getCollection("Sucursal").aggregate([
 // 18.
 use("db_campus_alquiler");
 db.Alquiler.countDocuments();
+
+// 19.
+use("db_campus_alquiler");
+db.getCollection("Automovil").aggregate([
+  {
+    $lookup: {
+      from: "Alquiler",
+      localField: "id_",
+      foreignField: "ID_Automovil",
+      as: "Alquiler"
+    }
+  },
+  {
+    $project: { 
+      _id: 0,
+      "Alquiler._id": 0
+    }
+  },
+  {
+    $match: { 
+      $and: [
+        { Capacidad: 5 },
+        { "Alquiler.Estado": "Disponible" }
+      ]
+    }
+  }
+]);
